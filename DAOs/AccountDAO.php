@@ -60,4 +60,29 @@ class AccountDAO {
         $podStatement->BindValue(':isExistsFlag', $dto->GetIsExistsFlag());
         $podStatement->Execute();
     }
+
+    public function Update(\DTOs\AccountDTO $dto) {
+        $isIdNull = $dto->GetId() === null;
+        if ($isIdNull)
+            throw new DAOException('DAOのUpdateメソッドへ入力可能なDTOの主キーはnull以外でなければなりません。');
+
+        $query = '
+            UPDATE account SET 
+            name = :name,
+            password_hash = :passwordHash,
+            age = :age,
+            gender = :gender,
+            is_exists_flag = :isExistsFlag
+            WHERE id = :id;
+        ';
+
+        $podStatement = $this->_pdo->prepare($query);
+        $podStatement->BindValue(':id', $dto->GetId());
+        $podStatement->BindValue(':name', $dto->GetName());
+        $pdoStatement->BindValue(':passwordHash', $dto->GetPasswordHash());
+        $podStatement->BindValue(':age', $dto->GetAge());
+        $podStatement->BindValue(':gender', $dto->GetGender());
+        $podStatement->BindValue(':isExistsFlag', $dto->GetIsExistsFlag());
+        $podStatement->Execute();
+    }
 }
