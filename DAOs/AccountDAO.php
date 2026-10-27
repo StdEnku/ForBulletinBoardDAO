@@ -1,9 +1,5 @@
 <?php
 
-namespace DAOs;
-
-require_once __DIR__ . '/../DTOs/AccountDTO.php';
-
 /*===========================================================================
     [警告]
     このクラスを使用する場合は以下こテーブルを事前に作成済みでなければならない。
@@ -34,6 +30,10 @@ require_once __DIR__ . '/../DTOs/AccountDTO.php';
     );
 ===========================================================================*/
 
+namespace DAOs;
+
+require_once __DIR__ . '/DTOs/AccountDTO.php';
+
 class AccountDAO {
     private \PDO $_pdo;
 
@@ -41,5 +41,12 @@ class AccountDAO {
         $this->_pdo = $pdo;
     }
 
+    public function Create(\DTOs\AccountDTO $dto) {
+        $query = "
+            INSERT INTO account (name, age, gender, is_exists_flag) 
+            VALUES (:name, :age, :gender, :isExistsFlag);
+        ";
 
+        $pdoStatement = $this->_pdo->prepre($query);
+    }
 }
