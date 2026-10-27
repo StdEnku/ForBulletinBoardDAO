@@ -34,10 +34,12 @@ require_once __DIR__ . '/../DTOs/AccountDTO.php';
     );
 ===========================================================================*/
 
-class BulletinBoardDAO {
+class AccountDAO {
     private \PDO $_pdo;
 
     public function __construct(\PDO $pdo) {
         $this->_pdo = $pdo;
     }
+
+
 }
