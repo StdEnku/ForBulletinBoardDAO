@@ -33,6 +33,7 @@
 namespace DAOs;
 
 require_once __DIR__ . '/DTOs/AccountDTO.php';
+require_once __DIR__ . '/DAOException.php';
 
 class AccountDAO {
     private \PDO $_pdo;
@@ -42,11 +43,21 @@ class AccountDAO {
     }
 
     public function Create(\DTOs\AccountDTO $dto) {
-        $query = "
-            INSERT INTO account (name, age, gender, is_exists_flag) 
-            VALUES (:name, :age, :gender, :isExistsFlag);
-        ";
+        $isIdNull = $dto->GetId() === null;
+        if (!$isIdNull)
+            throw new DAOException('DAOのCREATEメソッドへ入力可能なDTOの主キーはnullでなければなりません。');
 
-        $pdoStatement = $this->_pdo->prepre($query);
+        $query = '
+            INSERT INTO account (name, password_hash, age, gender, is_exists_flag) 
+            VALUES (:name, :passwordHash, :age, :gender, :isExistsFlag);
+        ';
+
+        $podStatement = $this->_pdo->prepare($query);
+        $podStatement->BindValue(':name', $dto->GetName());
+        $pdoStatement->bindValue(':passwordHash', $dto->GetPasswordHash());
+        $podStatement->BindValue(':age', $dto->GetAge());
+        $podStatement->BindValue(':gender', $dto->GetGender());
+        $podStatement->BindValue(':isExistsFlag', $dto->GetIsExistsFlag());
+        $podStatement->Execute();
     }
 }
