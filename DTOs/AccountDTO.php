@@ -9,23 +9,23 @@ class AccountDTO {
     public const GENDER_FEMALE = 1;
     public const GENDER_ETC = 2;
 
-    private int $_id;
+    private ?int $_id;// DBからの取得値でないならnullとなる
     private string $_name;
     private string $_passwordHash;
     private int $_age;
     private int $_gender;
-    private bool $_isExistsFlug;
+    private bool $_isExistsFlag;
 
-    public function __construct(int $id, string $name, string $passwordHash, int $age, int $gender, bool $isExistsFlug) {
+    public function __construct(?int $id, string $name, string $passwordHash, int $age, int $gender, bool $isExistsFlag) {
         $this->_id = $id;
         $this->_name = $name;
         $this->_passwordHash = $passwordHash;
         $this->_age = $age;
         $this->_gender = $gender;
-        $this->_isExistsFlug = $isExistsFlug;
+        $this->_isExistsFlag = $isExistsFlag;
     }
 
-    public function GetId() : int {
+    public function GetId() : ?int {
         return $this->_id;
     }
 
@@ -45,7 +45,7 @@ class AccountDTO {
         return $this->_gender;
     }
 
-    public function GetIsExistsFlug() : bool {
-        return $this->_isExistsFlug;
+    public function GetIsExistsFlag() : bool {
+        return $this->_isExistsFlag;
     }
 }
