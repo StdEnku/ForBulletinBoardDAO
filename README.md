@@ -1,5 +1,6 @@
-# BulletinBoardDAO
+# ForBulletinBoardDAO
 技術デモのために作られた自作掲示板サイト用の自作DAO
+accountテーブルとcommentテーブルを持つ。
 
 ```sql
 #[DB作成]
