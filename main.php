@@ -4,10 +4,11 @@
 
 require_once __DIR__ . '/DAOs/BulletinBoardDAO.php';
 
-$dbConnectionString = 'mysql:host=localhost;dbname=bulletinBoard;charset=utf8';
-$dbPassword = "";
+$dbcs = 'mysql:host=localhost;dbname=bulletinBoard;charset=utf8';
 $dbUser = "root";
+$dbPass = "";
 
-$dao = new \DAOs\BulletinBoardDAO($dbConnectionString, $dbUser, $dbPassword);
+$pdo = new \PDO($dbcs, $dbUser, $dbPass);
+$dao = new \DAOs\BulletinBoardDAO($pdo);
 
 echo "hi";
