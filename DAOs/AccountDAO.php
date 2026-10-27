@@ -42,6 +42,7 @@ class AccountDAO {
         $this->_pdo = $pdo;
     }
 
+    //Create処理
     public function Create(\DTOs\AccountDTO $dto) {
         $isIdNull = $dto->GetId() === null;
         if (!$isIdNull)
@@ -61,8 +62,11 @@ class AccountDAO {
         $podStatement->Execute();
     }
 
+    //Update処理、論理削除もここから行える。
     public function Update(\DTOs\AccountDTO $dto) {
         $isIdNull = $dto->GetId() === null;
+        $isExists = $dto->GetIsExistsFlag();
+
         if ($isIdNull)
             throw new DAOException('DAOのUpdateメソッドへ入力可能なDTOの主キーはnull以外でなければなりません。');
 
